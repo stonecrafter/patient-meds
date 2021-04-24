@@ -1,6 +1,24 @@
 @import 'antd/lib/style/themes/default.less';
 
-.patientList {
+.patient-list {
   flex: 1;
   border-right: 1px solid @border-color-base;
+  display: flex;
+  flex-direction: column;
+
+  .search-bar {
+    padding: 16px;
+  }
+
+  &__menu {
+    flex: 1;
+    border-right: none;
+    border-top: 1px solid @border-color-base;
+  }
+
+  &__empty {
+    margin: 16px;
+    text-align: center;
+    padding-top: 8px;
+  }
 }

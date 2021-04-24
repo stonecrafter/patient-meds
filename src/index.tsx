@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import HomePage from 'components/HomePage';
@@ -9,7 +10,9 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <Provider store={store}>
-    <HomePage />
+    <BrowserRouter>
+      <HomePage />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

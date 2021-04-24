@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { v4 as uuid } from 'uuid';
 import { RootState } from 'store/store';
 
 const initialState: PatientState = {};
@@ -8,27 +7,59 @@ export const patientsSlice = createSlice({
   name: 'patients',
   initialState,
   reducers: {
-    createPatient: (state, action: PayloadAction<PatientForm>) => {
-      // It is also possible to make email the unique identifier
-      // but for deep linking to a specific user profile, it might
-      // be better to use a uuid, though it is less descriptive
-      // In the real world, one email does not necessarily always
-      // belong to one person, either...
-      const id = uuid();
+    createUpdatePatient: (state, action: PayloadAction<Patient>) => {
+      const { id } = action.payload;
       state[id] = {
         ...action.payload,
-        id,
-        medications: [],
+      };
+    },
+    deletePatient: (state, action: PayloadAction<{ id: string }>) => {
+      delete state[action.payload.id];
+    },
+    addMedicationToPatient: (
+      state,
+      action: PayloadAction<{ patientId: string; medicationId: string }>
+    ) => {
+      const { patientId, medicationId } = action.payload;
+
+      const patient = state[patientId];
+      state[patientId] = {
+        ...patient,
+        medications: [...patient.medications, medicationId],
+      };
+    },
+    removeMedicationFromPatient: (
+      state,
+      action: PayloadAction<{ patientId: string; medicationId: string }>
+    ) => {
+      const { patientId, medicationId } = action.payload;
+
+      const patient = state[patientId];
+      state[patientId] = {
+        ...patient,
+        medications: patient.medications.filter((id) => id !== medicationId),
       };
     },
   },
 });
 
 // Actions
-export const { createPatient } = patientsSlice.actions;
+export const {
+  createUpdatePatient,
+  deletePatient,
+  addMedicationToPatient,
+  removeMedicationFromPatient,
+} = patientsSlice.actions;
 
 // Selectors
 export const getAllPatients = (state: RootState) =>
   Object.values(state.patients);
+export const getPatientById = (state: RootState, patientId: string) =>
+  state.patients[patientId];
+export const getPatientHasMedication = (
+  state: RootState,
+  patientId: string,
+  medicationId: string
+) => state.patients[patientId]?.medications.includes(medicationId);
 
 export default patientsSlice.reducer;

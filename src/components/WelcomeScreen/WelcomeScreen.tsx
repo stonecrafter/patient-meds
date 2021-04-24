@@ -1,16 +1,23 @@
 import { Empty } from 'antd';
 
-import './WelcomeScreen.css';
+import 'components/HomePage/HomePage.css';
 
 const WelcomeScreen = () => {
   return (
     <Empty
-      className="welcome"
+      className="content"
       image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
       imageStyle={{
         height: 60,
       }}
-      description={<span>Welcome to Patient Medication Records</span>}
+      description={
+        <>
+          <h3 className="content__description">
+            Welcome to Patient-Medication Records
+          </h3>
+          <p>Add or select a patient to get started!</p>
+        </>
+      }
     />
   );
 };

@@ -3,7 +3,7 @@ import { Drawer, Spin } from 'antd';
 import debounce from 'lodash/debounce';
 import axios from 'axios';
 
-import MedicationSearch from 'components/MedicationSearch';
+import SearchBar from 'components/SearchBar';
 import MedicationList from 'components/MedicationList';
 import { SEARCH_API_URL } from 'utils';
 
@@ -51,14 +51,28 @@ const MedicationPanel = (props: Props) => {
     [query]
   );
 
+  const handleClose = () => {
+    // Reset everything
+    setQuery('');
+    setSearchResults([]);
+    onClose();
+  };
+
   return (
     <Drawer
       width={500}
-      title={<MedicationSearch query={query} setQuery={setQuery} />}
+      title={
+        <SearchBar
+          query={query}
+          setQuery={setQuery}
+          placeholder="Search medications database"
+        />
+      }
       placement="right"
       closable={false}
-      onClose={onClose}
+      onClose={handleClose}
       visible={visible}
+      destroyOnClose
     >
       {isSearching ? (
         <Spin className="spinner" />

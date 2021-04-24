@@ -1,21 +1,22 @@
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
-import './MedicationSearch.css';
+import './SearchBar.css';
 
 type Props = {
   query: string;
   setQuery: (q: string) => void;
+  placeholder: string;
 };
 
-const MedicationSearch = (props: Props) => {
-  const { query, setQuery } = props;
+const SearchBar = (props: Props) => {
+  const { query, setQuery, placeholder } = props;
 
   return (
     <Input
-      className="medicationSearch"
+      className="search-bar"
       allowClear
-      placeholder="Search medications database"
+      placeholder={placeholder}
       prefix={<SearchOutlined className="site-form-item-icon" />}
       onChange={(e) => setQuery(e.target.value)}
       value={query}
@@ -24,4 +25,4 @@ const MedicationSearch = (props: Props) => {
   );
 };
 
-export default MedicationSearch;
+export default SearchBar;

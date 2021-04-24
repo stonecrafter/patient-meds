@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { PageHeader, Button } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 import MedicationPanel from 'components/MedicationPanel';
-import NewPatient from 'components/NewPatient';
+import CreateEditPatient from 'components/CreateEditPatient';
 
 import './TopBar.css';
 
@@ -29,7 +30,7 @@ const TopBar = () => {
     <>
       <PageHeader
         className="topBar"
-        title="Patient-Medication Records"
+        title={<Link to="/">Patient-Medication Records</Link>}
         extra={[
           <Button
             key="new"
@@ -45,7 +46,7 @@ const TopBar = () => {
         ]}
       />
       <MedicationPanel onClose={onDrawerClose} visible={isDrawerVisible} />
-      <NewPatient onClose={onModalClose} visible={isModalVisible} />
+      <CreateEditPatient onClose={onModalClose} visible={isModalVisible} />
     </>
   );
 };
