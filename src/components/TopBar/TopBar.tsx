@@ -12,6 +12,7 @@ const TopBar = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  // Can be made into hooks
   const showDrawer = () => {
     setIsDrawerVisible(true);
   };

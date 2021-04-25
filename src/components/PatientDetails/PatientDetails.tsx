@@ -38,6 +38,7 @@ const PatientDetails = () => {
   const goHome = () => history.push('/');
 
   if (!patient) {
+    // This could be its own component with customisable subtitle
     return (
       <Result
         className="content patient-not-found"

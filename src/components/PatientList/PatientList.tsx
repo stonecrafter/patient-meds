@@ -29,7 +29,8 @@ const PatientList = () => {
     }
   }, [searchQuery, patients]);
 
-  // Todo: What's wrong with the type here?
+  // TODO: not sure what is the correct type to put here, antd documentation
+  // has not been helpful...
   const onPatientSelect = (item: any) => {
     const selectedPatient = item.key;
 

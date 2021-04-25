@@ -19,7 +19,8 @@ const MedicationListItem = (props: Props) => {
   const { item } = props;
   const dispatch = useTypedDispatch();
   const match = useRouteMatch('/patient/:patientId');
-  // This should be cleaned up a bit...
+  // This should really be cleaned up a bit...
+  // Maybe useRouteMatch isn't the best way to handle this?
   const { patientId } =
     (match?.params as { patientId?: string }) ?? ({} as { patientId?: string });
   const patient = useTypedSelector((state) =>
@@ -30,6 +31,7 @@ const MedicationListItem = (props: Props) => {
   );
 
   const handleAddMedication = () => {
+    // Should not happen, but just in case
     if (!patientId) return;
 
     dispatch(addMedication(item));
@@ -37,6 +39,7 @@ const MedicationListItem = (props: Props) => {
   };
 
   const handleRemoveMedication = () => {
+    // Should not happen, but just in case
     if (!patientId) return;
 
     dispatch(removeMedicationFromPatient({ patientId, medicationId: item.id }));

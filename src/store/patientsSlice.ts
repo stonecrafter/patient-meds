@@ -18,6 +18,7 @@ export const patientsSlice = createSlice({
     },
     addMedicationToPatient: (
       state,
+      // These could be made into reusable type definitions
       action: PayloadAction<{ patientId: string; medicationId: string }>
     ) => {
       const { patientId, medicationId } = action.payload;

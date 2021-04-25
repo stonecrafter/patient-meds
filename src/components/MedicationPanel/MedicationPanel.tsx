@@ -23,6 +23,7 @@ const MedicationPanel = (props: Props) => {
   useEffect(() => {
     onSearchChange();
 
+    // In case the panel is closed while a search is still pending
     return onSearchChange.cancel;
   }, [query]);
 

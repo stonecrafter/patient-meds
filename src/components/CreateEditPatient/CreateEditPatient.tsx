@@ -17,6 +17,7 @@ type Props = {
   patient?: Patient;
 };
 
+// This can be moved into a types.ts file
 type MedicationEdit = {
   id: string;
   name: string;
@@ -44,6 +45,7 @@ const CreateEditPatient = (props: Props) => {
         email: patient.email,
         phone: patient.phone,
         // Need to convert timestamp back to moment object for the date picker
+        // This is a bit clunky, maybe there is a better way of handling it?
         dateOfBirth: moment(patient.dateOfBirth),
       });
     }
@@ -54,7 +56,7 @@ const CreateEditPatient = (props: Props) => {
   }, [medicationList.length]);
 
   const onCancel = () => {
-    // Reset the medication list
+    // Discard any changes to the medication list
     setEditingMedicationList(medicationList);
     onClose();
   };
@@ -77,7 +79,7 @@ const CreateEditPatient = (props: Props) => {
       createUpdatePatient({
         ...values,
         id,
-        // Redux wants dates as timestamps, not objects
+        // Redux wants dates as timestamps, not objects...
         dateOfBirth: new Date(values.dateOfBirth).getTime(),
         medications: [],
       })
@@ -98,6 +100,12 @@ const CreateEditPatient = (props: Props) => {
         // this method in the first place
         id: patient!.id,
         dateOfBirth: new Date(values.dateOfBirth).getTime(),
+        // We only store ids. It is possible to just store both the
+        // name and the id, and thus remove the need for a
+        // medications reducer entirely, but in the future there
+        // may be possibly a need for the reducer anyway if we
+        // wanted to build features related to medications independent
+        // of users.
         medications: editingMedicationList.map(({ id }) => id),
       })
     );
@@ -127,18 +135,18 @@ const CreateEditPatient = (props: Props) => {
         key={patient ? patient.id : 'new'}
         form={form}
         preserve={false}
-        name="new-patient"
+        name="patient-form"
         layout="vertical"
         onFinish={patient ? onPatientEdit : onPatientCreate}
         initialValues={
           patient
             ? {
-                // Still need this?
+                // This duplicates what's in the useEffect on the top... should
+                // combine them somehow
                 firstName: patient.firstName,
                 lastName: patient.lastName,
                 email: patient.email,
                 phone: patient.phone,
-                // Need to convert timestamp back to moment object for the date picker
                 dateOfBirth: moment(patient.dateOfBirth),
               }
             : undefined

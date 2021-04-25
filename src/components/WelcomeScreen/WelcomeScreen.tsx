@@ -6,6 +6,8 @@ const WelcomeScreen = () => {
   return (
     <Empty
       className="content"
+      // This is just from an example on antd's demo page...
+      // I thought it looked pretty alright.
       image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
       imageStyle={{
         height: 60,
