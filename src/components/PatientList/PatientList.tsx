@@ -22,7 +22,8 @@ const PatientList = () => {
     } else {
       const filtered = patients.filter((patient) => {
         // Case-insensitive comparison
-        const fullName = `${patient.firstName} ${patient.lastName}`.toLocaleLowerCase();
+        const fullName =
+          `${patient.firstName} ${patient.lastName}`.toLocaleLowerCase();
         return fullName.indexOf(searchQuery.toLocaleLowerCase()) > -1;
       });
       setFilteredList(filtered);

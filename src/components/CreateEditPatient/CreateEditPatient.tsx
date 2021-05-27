@@ -31,9 +31,8 @@ const CreateEditPatient = (props: Props) => {
   const medicationList = useTypedSelector((state) =>
     patient ? getMedicationByIds(state, patient.medications) : []
   );
-  const [editingMedicationList, setEditingMedicationList] = useState<
-    MedicationEdit[]
-  >(medicationList);
+  const [editingMedicationList, setEditingMedicationList] =
+    useState<MedicationEdit[]>(medicationList);
 
   useEffect(() => {
     if (!patient) {
